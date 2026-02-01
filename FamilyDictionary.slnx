@@ -4,4 +4,5 @@
   </Folder>
   <Project Path="Api/Api.csproj" />
   <Project Path="Blazor/Blazor.csproj" />
+  <Project Path="Shared/Shared.csproj" Id="721c4a65-ccc7-4b01-bfa9-2a4e26fb8716" />
 </Solution>

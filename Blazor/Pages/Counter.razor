@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@using Shared
 
 @inject HttpClient HttpClient
 
@@ -10,23 +11,22 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-<p>@Content</p>
+@foreach(var definition in Definitions)
+{
+    <p><strong>@definition.Name</strong>: @definition.Description</p>
+}
 
 @code {
     private int currentCount = 0;
 
-    private string Content = string.Empty;
+    private List<Definition> Definitions = [];
 
     private async Task IncrementCount()
     {
-        Content = string.Empty;
+        Definitions = [];
         try
         {
-            var result = await HttpClient.GetAsync("api/Function1");
-            await result.Content.ReadAsStringAsync().ContinueWith(task =>
-            {
-                Content = task.Result;
-            });
+            Definitions = await HttpClient.GetFromJsonAsync<List<Definition>>("api/GetAll") ?? [];
         }
         catch (Exception exc)
         {
